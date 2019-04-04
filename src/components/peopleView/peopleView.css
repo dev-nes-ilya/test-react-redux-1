@@ -1,0 +1,110 @@
+.Main_block {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid rgba(173, 173, 173, 0.74);
+    box-shadow: 0px 14px 28px 0px rgba(50, 50, 50, 0.3);
+    border-radius: 8px;
+    margin: 5px;
+    background: #ffffff; 
+    background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); 
+    background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); 
+    background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%); 
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 );
+}
+.video {
+    display: flex;
+    width: 392px;
+    justify-content: center;
+}
+
+
+.PeopleView {
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+    margin: 5px;
+    padding: 5px;    
+}
+
+.PeopleView:hover {
+    background: #cee7ff; /* Old browsers */
+}
+
+.PeopleView > div {
+    display: flex;
+    padding: 5px;
+}
+div[class~="child"] {
+    margin: 0 10px;
+    max-width: 250px;
+}
+
+.First_block {
+    display: flex;
+    align-items: center;
+    min-width: 350px;
+}
+.First_block div {
+    padding: 5px;
+}
+.First_block div:nth-child(1) {
+    flex-grow: 1;
+}
+.First_block div:nth-child(2) {
+    flex-grow: 10;
+    max-width: 350px;
+}
+.First_block div:nth-child(3) {
+    flex-grow: 1;    
+    display: flex;
+}
+.fav {
+    width: 10px;
+    height: 15px;
+    margin: 0px 0px 0px 25px;
+    background: url('../media/images/icon/glyphicons_fit_content_width.png') 0px 0px;
+    background-repeat: no-repeat;
+    background-size: 80%;
+    filter: invert(0%);
+}
+.notFavorite {
+    filter: invert(95%);
+}
+
+.Avatars {
+    width: 25px;
+    height: 25px;
+    background-repeat: no-repeat;
+    background-size: 80%;
+}
+
+.Avatars.cat {
+    background: url('../media/images/img/cat.svg') 0px 0px;
+}
+.Avatars.dog {
+    background: url('../media/images/img/dog.svg') 0px 0px;
+}
+.Avatars.fox {
+    background: url('../media/images/img/fox.svg') 0px 0px;
+}
+.Avatars.koala {
+    background: url('../media/images/img/koala.svg') 0px 0px;
+}
+.Avatars.lion {
+    background: url('../media/images/img/lion.svg') 0px 0px;
+}
+.Avatars.owl {
+    background: url('../media/images/img/owl.svg') 0px 0px;
+}
+.Avatars.penguin {
+    background: url('../media/images/img/penguin.svg') 0px 0px;
+}
+.Avatars.pig {
+    background: url('../media/images/img/pig.svg') 0px 0px;
+}
+.Avatars.raccoon {
+    background: url('../media/images/img/raccoon.svg') 0px 0px;
+}
+.Avatars.sheep {
+    background: url('../media/images/img/sheep.svg') 0px 0px;
+}

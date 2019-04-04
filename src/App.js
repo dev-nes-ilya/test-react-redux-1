@@ -1,27 +1,54 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import data from "../src/data/data.json";
+import PeopleCards from "./components/peopleCard/peopleCard";
+import PeopleView from "./components/peopleView/peopleView";
 
 class App extends Component {
+  state = {
+    listData: data,
+    shoeCards: !true
+  };
+
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+    const isCards = this.state.shoeCards
+    let cls = '';
+    let peoples;
+    if (isCards) {
+      cls = 'App';
+      peoples = this.state.listData.map((item, index) => {
+        return (
+          <PeopleCards
+            key={index}
+            name={item.name}
+            age={item.age}
+            phone={item.phone}
+            favourite={item.favourite}
+            image={item.image}
+          />
+        );
+      });
+    } else {
+      cls = 'App_flex';
+      peoples = this.state.listData.map((item, index) => {
+        return (
+          <PeopleView
+            key={index}
+            name={item.name}
+            age={item.age}
+            phone={item.phone}
+            favourite={item.favourite}
+            image={item.image}
+            phrase={item.phrase}
+            video={item.video}
+          />
+        );
+      });
+    }
+    return <div className='Main'>
+      <div className={cls}>{peoples}</div>
       </div>
-    );
+    
   }
 }
 
