@@ -10,53 +10,54 @@ const PeopleCards = props => {
     const rest = props.age % 10;
     switch (rest) {
       case 1:
-      ageLabel = "год";
+        ageLabel = "год";
         break;
       case 2:
-      ageLabel = "года";
+        ageLabel = "года";
         break;
       case 3:
-      ageLabel = "года";
+        ageLabel = "года";
         break;
       case 4:
-      ageLabel = "года";
+        ageLabel = "года";
         break;
       default:
-      ageLabel = "лет";
+        ageLabel = "лет";
     }
   }
 
-  let cls1 = "";
-  let cls2 = ['video']
+  let cls1 = ["fav"];
+  let cls2 = ["video"];
   if (!props.favourite) {
-    cls1 = "notFavorite";
+    cls1.push("notFavorite");
   }
   if (props.video) {
-    cls2.push(props.video)
+    cls2.push(props.video);
   }
- 
+  let srcimg = `/images/img/${props.image}.svg`;
+  let srcvid = `/videos/${props.video}.mp4`;
+
   return (
     <div className="Main_block">
       <div className="PeopleView">
         <div className="First_block">
-          <div>
-            <div className={"Avatars " + props.image} />
-          </div>
+          <img className='Avatar' src={srcimg} alt={props.image} />
           <div>{props.name}</div>
-          <div className={cls1}>
-            <div className="fav" />
-          </div>
+          <img
+            className={cls1.join(" ")}
+            src="/images/icon/glyphicons_fit_content_width.png"
+            alt="fav"
+          />
         </div>
         <div className="child">{props.age + " " + ageLabel}</div>
         <div className="child">{props.phone}</div>
         <div className="child">{props.phrase}</div>
       </div>
-      {props.video 
-        ? (<div className={cls2.join(' ')}>
-          <video controls  preload="none" src="../media/videos/boy.mp4">
-          </video>
-        </div>) 
-        : null}
+      {props.video ? (
+        <div className={cls2.join(" ")}>
+          <video controls preload="none" width="100%" height="100%" src={srcvid} />
+        </div>
+      ) : null}
     </div>
   );
 };
