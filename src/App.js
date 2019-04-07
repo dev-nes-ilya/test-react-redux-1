@@ -7,24 +7,7 @@ import Menu from "./components/menu/menu";
 
 class App extends Component {
   render() {
-    // const vs = ["id", "name", "age"];
-    // const num = 2;
-    // const fetchNum = -1;
-    // const sorted = this.props.listData.sort((a, b) => {
-    //   if (a[vs[num]] > b[vs[num]]) return fetchNum;
-    //   if (b[vs[num]] > a[vs[num]]) return -fetchNum;
-    // });
-    // // console.log(sorted);
-    // // const name = 'name';
 
-    // // if(this.props.listData[0][name] > this.props.listData[1][name]) {
-    // //   console.log('верно')
-    // // } else {
-    // //   console.log('не верно')
-    // // }
-
-    // // console.log(this.props.listData[0].name)
-    console.log('App:', this.props.listData)
     const isCards = this.props.showCards;
     let cls = "";
     let peoples;
@@ -34,11 +17,13 @@ class App extends Component {
         return (
           <PeopleCards
             key={index}
+            idCard={index}
             name={item.name}
             age={item.age}
             phone={item.phone}
             favourite={item.favourite}
             image={item.image}
+            obj={item}
           />
         );
       });
@@ -48,6 +33,7 @@ class App extends Component {
         return (
           <PeopleView
             key={index}
+            idCard={index}
             name={item.name}
             age={item.age}
             phone={item.phone}
@@ -55,6 +41,7 @@ class App extends Component {
             image={item.image}
             phrase={item.phrase}
             video={item.video}
+            obj={item}
           />
         );
       });
