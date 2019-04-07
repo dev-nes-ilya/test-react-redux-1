@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import {handlerchangeFavorite} from '../../store/actions/actionsMenu'
 
 const PeopleCards = props => {
-  console.log(props)
   function handlerchangeFavorite() {
     let currentCard = { ...props.obj };
     if (currentCard.favourite) {
@@ -68,9 +67,9 @@ const PeopleCards = props => {
           <img className='Avatar' src={srcimg} alt={props.image} />
           <div>{props.name}</div>
           <div
+            style={style}
             onClick={() => handlerchangeFavorite()}
             className={cls1.join(" ")}
-            style={style}
           />
         </div>
         <div className="child">{props.age + " " + ageLabel}</div>
