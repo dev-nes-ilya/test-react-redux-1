@@ -1,8 +1,9 @@
 {
-  "name": "test-react-redux-1",
+  "name": "test-react-redux",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "radium": "^0.25.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^6.0.1",
