@@ -1,9 +1,10 @@
 import React from "react";
 import "./peopleView.css";
 import {connect} from 'react-redux';
-import {handlerchangeFavorite} from '../../store/actions/actionsMenu'
+import {handlerchangeFavorite} from '../../store/actions/actionsMenu';
+import Radium from 'radium'
 
-const PeopleCards = props => {
+const peopleView = props => {
   function handlerchangeFavorite() {
     let currentCard = { ...props.obj };
     if (currentCard.favourite) {
@@ -98,4 +99,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PeopleCards);
+export default connect(mapStateToProps, mapDispatchToProps)(Radium(peopleView));
