@@ -1,37 +1,33 @@
 import {
   SORT_BY,
-  SET_VIEW_CARDS,
-  SET_VIEW_PREVIEW,
   SET_RUS_LANG,
   SET_ENG_LANG,
-  CHANGE_FAVORITE
+  CHANGE_FAVORITE,
+  FILTER_BY_INPUT,
+  SET_DATA_TO_STATE,
+  SET_ORDER
 } from "./actionTypes";
 
-export function sortBy(fieldValue = "id", num = 1, arr) {
-  arr.sort((a, b) => {
-    if (a[fieldValue] > b[fieldValue]) return num;
-    if (b[fieldValue] > a[fieldValue]) return -num;
-  });
+
+export function setDataToState(data) {
   return {
+    type: SET_DATA_TO_STATE,
+    data
+  }
+}
+
+export function sortBy(fieldValue) {
+   return {
     type: SORT_BY,
-    listData: arr,
-    sort: {
-      fieldValue: fieldValue,
-      num: num
-    }
+    fieldValue
   };
 }
 
-export function setViewCard() {
+export function setSortOrder(num) {
   return {
-    type: SET_VIEW_CARDS
-  };
-}
-
-export function setViewPreview() {
-  return {
-    type: SET_VIEW_PREVIEW
-  };
+    type: SET_ORDER,
+    num
+  }
 }
 
 export function setLanguage(currentLang) {
@@ -46,11 +42,16 @@ export function setLanguage(currentLang) {
   }
 }
 
-export function handlerchangeFavorite(arr, id, card) {
-  const newListData = arr.concat()
-  newListData[id] = card
+export function handlerchangeFavorite(id) {
   return {
     type: CHANGE_FAVORITE,
-    newListData
+    id
+  };
+}
+
+export function filterByInput(filterWord) {
+  return {
+    type: FILTER_BY_INPUT,
+    filterWord
   };
 }

@@ -1,20 +1,13 @@
 import React from "react";
 import "./peopleView.css";
-import {connect} from 'react-redux';
-import {handlerchangeFavorite} from '../../store/actions/actionsMenu';
-import Radium from 'radium'
+import { connect } from "react-redux";
+import { handlerchangeFavorite } from "../../store/actions/actionsMenu";
+import Radium from "radium";
 
 const peopleView = props => {
   function handlerchangeFavorite() {
-    let currentCard = { ...props.obj };
-    if (currentCard.favourite) {
-      currentCard.favourite = false;
-    } else {
-      currentCard.favourite = true;
-    }
-
-    props.changeFavorite(props.listData, props.idCard, currentCard);
-  }
+    props.changeFavorite(props.idCard);
+}
 
   let ageLabel = props.language[props.currentLang].age.label;
   if (props.age > 4 && props.age <= 20) {
@@ -49,23 +42,24 @@ const peopleView = props => {
   }
   let srcimg = `/images/img/${props.image}.svg`;
   let srcvid = `/videos/${props.video}.mp4`;
-  
+
   const style = {
-    backgroundImage: 'url(/images/icon/favorites-cheked.png)',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: '50%',
-    backgroundPosition: '55%',
-    ':hover': {
-      cursor: 'pointer'
+    backgroundImage: "url(/images/icon/favorites-cheked.png)",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "50%",
+    backgroundPosition: "55%",
+    transition: '0.1s ease-in-out',
+    ":hover": {
+      cursor: "pointer",
+      backgroundSize: '65%'
     }
   };
- 
+
   return (
-   
     <div className="Main_block">
       <div className="PeopleView">
         <div className="First_block">
-          <img className='Avatar' src={srcimg} alt={props.image} />
+          <img className="Avatar" src={srcimg} alt={props.image} />
           <div>{props.name}</div>
           <div
             style={style}
@@ -79,7 +73,13 @@ const peopleView = props => {
       </div>
       {props.video ? (
         <div className={cls2.join(" ")}>
-          <video controls preload="none" width="100%" height="100%" src={srcvid} />
+          <video
+            controls
+            preload="none"
+            width="100%"
+            height="100%"
+            src={srcvid}
+          />
         </div>
       ) : null}
     </div>
@@ -90,13 +90,17 @@ function mapStateToProps(state) {
   return {
     listData: state.app.listData,
     currentLang: state.app.currentLang,
-    language: state.app.language
-  } 
+    language: state.app.language,
+  };
 }
 function mapDispatchToProps(dispatch) {
   return {
-    changeFavorite: (arr, id, card) => dispatch(handlerchangeFavorite(arr, id, card))
+    changeFavorite: (id) =>
+      dispatch(handlerchangeFavorite(id))
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Radium(peopleView));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Radium(peopleView));

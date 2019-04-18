@@ -4,18 +4,11 @@ import "./peopleCard.css";
 import { connect } from "react-redux";
 import { handlerchangeFavorite } from "../../store/actions/actionsMenu";
 
-const PeopleCards = props => {
+
+const PeopleCard = props => {
   function handlerchangeFavorite() {
-    let currentCard = { ...props.obj };
-    if (currentCard.favourite) {
-      currentCard.favourite = false;
-    } else {
-      currentCard.favourite = true;
-    }
-
-    props.changeFavorite(props.listData, props.idCard, currentCard);
+      props.changeFavorite(props.idCard);
   }
-
   let ageLabel = props.language[props.currentLang].age.label;
   if (props.age > 4 && props.age <= 20) {
     ageLabel = ageLabel[2];
@@ -50,8 +43,10 @@ const PeopleCards = props => {
     backgroundRepeat: 'no-repeat',
     backgroundSize: '75%',
     backgroundPosition: '50%',
+    transition: '0.1s ease-in-out',
     ':hover': {
-      cursor: 'pointer'
+      cursor: 'pointer',
+      backgroundSize: '90%'
     }
   };
 
@@ -78,11 +73,11 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    changeFavorite: (arr, id, card) =>
-      dispatch(handlerchangeFavorite(arr, id, card))
+    changeFavorite: (id) =>
+      dispatch(handlerchangeFavorite(id))
   };
 }
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Radium(PeopleCards));
+)(Radium(PeopleCard));
