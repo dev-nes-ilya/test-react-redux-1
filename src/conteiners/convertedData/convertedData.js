@@ -2,15 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PeopleCard from "../peopleCard/peopleCard";
 import PeopleView from "../peopleView/peopleView";
-import {withRouter} from 'react-router-dom'
-
-
+import { withRouter } from "react-router-dom";
 
 class ConvertedData extends Component {
   dataConverter(data, filterWord, sortValue, order) {
     let arr = Object.values(data);
     let filterValue = filterWord.match(/[a-zA-Zа-яА-Я0-9]+/gi);
-    
+
     let filteredArr1;
     let filteredArr2;
     let currentFilter = arr;
@@ -82,12 +80,12 @@ class ConvertedData extends Component {
   }
 
   render() {
-    let params = new URLSearchParams(window.location.search)
+    let params = new URLSearchParams(window.location.search);
 
-    let preview = params.get('preview')
-    let filterWord = params.get('filterWord')
-    let sortValue = params.get('sortValue')
-    let sortOrder = params.get('sortOrder')
+    let preview = params.get("preview");
+    let filterWord = params.get("filterWord");
+    let sortValue = params.get("sortValue");
+    let sortOrder = params.get("sortOrder");
 
     let table;
     let cards;
@@ -131,18 +129,27 @@ class ConvertedData extends Component {
       );
     });
     return (
-      <div
-        style={{
-          top: "65px",
-          display: "flex",
-          flexWrap: "wrap",
-          maxWidth: "784px",
-          margin: "auto",
-          height: "100%",
-          background: "rgb(224, 224, 224)"
-        }}
-      >
-         {preview === 'table' ? table : cards}
+      <div>
+        <div style={{
+            position: "fixed",
+            background: "rgb(224, 224, 224)",
+            height: "100%",
+            width: "100%",
+            zIndex: '-1'
+          }}></div>
+        <div
+          style={{
+            top: "65px",
+            display: "flex",
+            alignContent: "flex-start",
+            flexWrap: "wrap",
+            maxWidth: "784px",
+            margin: "auto",
+            background: "rgb(224, 224, 224)"
+          }}
+        >
+          {preview === "table" ? table : cards}
+        </div>
       </div>
     );
   }
@@ -161,6 +168,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(
-  mapStateToProps
-)(withRouter(ConvertedData));
+export default connect(mapStateToProps)(withRouter(ConvertedData));

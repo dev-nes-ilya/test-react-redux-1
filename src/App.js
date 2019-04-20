@@ -7,14 +7,14 @@ import Menu from "./components/menu/menu";
 import { setDataToState } from "./store/actions/actionsMenu";
 import axios from "axios";
 
-
-
 class App extends Component {
   componentWillMount() {
-    this.props.history.push('?preview=table&filterWord=&sortValue=id&sortOrder=1', null)
+    this.props.history.push(
+      "?auto=on&preview=table&filterWord=&sortValue=id&sortOrder=1",
+      null
+    );
   }
 
-  
   async componentDidMount() {
     try {
       const response = await axios.get("../../../data/data.json");
@@ -28,11 +28,39 @@ class App extends Component {
   }
 
   render() {
+    let params = new URLSearchParams(window.location.search);
+    let autoPlay = params.get("auto");
+
+    window.onscroll = () => {
+      if (autoPlay === "on") {
+        let elem = document.getElementsByClassName("videoContent");
+        for (let i = 0; i < elem.length; i++) {
+          let pos = elem[i].getBoundingClientRect();
+          let curCenterY =
+            document.documentElement.clientHeight / 2 + window.pageYOffset; // расстояние от центра экрана до верха страницы
+          let topEl = pos.top + window.pageYOffset; // расстояние от верха страницы до верха элемента
+          let bottomEl = pos.bottom + window.pageYOffset; // расстояние от верха страницы до низа элемента
+          if(pos.bottom < document.documentElement.clientHeight / 2) {
+            elem[i].play()
+          } else {
+            if (curCenterY >= topEl && curCenterY <= bottomEl) {
+            if (elem[i - 1] !== undefined) {
+              elem[i - 1].pause()
+            };
+            elem[i].play();
+          } else {
+            elem[i].pause();
+          }
+          }
+          
+        }
+      }
+    };
 
     return (
       <div className="Main">
         <div className="Menu_container">
-        <Route component={Menu} />
+          <Route component={Menu} />
         </div>
         <div className="container" />
         <Route component={ConvertedData} />

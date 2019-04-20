@@ -2,12 +2,21 @@ import React from "react";
 import "./peopleView.css";
 import { connect } from "react-redux";
 import { handlerchangeFavorite } from "../../store/actions/actionsMenu";
+import { Link } from "react-router-dom";
 import Radium from "radium";
 
 const peopleView = props => {
   function handlerchangeFavorite() {
     props.changeFavorite(props.idCard);
-}
+  }
+
+  let params = new URLSearchParams(window.location.search);
+  let preview = params.get("preview");
+  let filterWord = params.get("filterWord");
+  let sortValue = params.get("sortValue");
+  let sortOrder = params.get("sortOrder");
+
+
 
   let ageLabel = props.language[props.currentLang].age.label;
   if (props.age > 4 && props.age <= 20) {
@@ -48,10 +57,10 @@ const peopleView = props => {
     backgroundRepeat: "no-repeat",
     backgroundSize: "50%",
     backgroundPosition: "55%",
-    transition: '0.1s ease-in-out',
+    transition: "0.1s ease-in-out",
     ":hover": {
       cursor: "pointer",
-      backgroundSize: '65%'
+      backgroundSize: "65%"
     }
   };
 
@@ -73,13 +82,21 @@ const peopleView = props => {
       </div>
       {props.video ? (
         <div className={cls2.join(" ")}>
-          <video
-            controls
-            preload="none"
-            width="100%"
-            height="100%"
-            src={srcvid}
-          />
+          <Link
+            to={{
+              pathname: "/",
+              search: `?auto=off&preview=${preview}&filterWord=${filterWord}&sortValue=${sortValue}&sortOrder=${sortOrder}`
+            }}
+          >
+            <video
+              className={"videoContent"}
+              controls
+              preload="none"
+              width="100%"
+              height="100%"
+              src={srcvid}
+            />
+          </Link>
         </div>
       ) : null}
     </div>
@@ -90,13 +107,12 @@ function mapStateToProps(state) {
   return {
     listData: state.app.listData,
     currentLang: state.app.currentLang,
-    language: state.app.language,
+    language: state.app.language
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
-    changeFavorite: (id) =>
-      dispatch(handlerchangeFavorite(id))
+    changeFavorite: id => dispatch(handlerchangeFavorite(id))
   };
 }
 
