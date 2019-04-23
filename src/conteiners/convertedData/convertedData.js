@@ -129,7 +129,7 @@ class ConvertedData extends Component {
       );
     });
     return (
-      <div>
+      <div className='directContainer'>
         <div style={{
             position: "fixed",
             background: "rgb(224, 224, 224)",

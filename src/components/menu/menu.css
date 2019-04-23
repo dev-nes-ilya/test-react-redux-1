@@ -113,7 +113,7 @@ a {
 }
 
 button {
-  margin: 2px 5px;
+  margin: 0;
   padding: 4px 15px;
   width: 100%;
   background: none;
@@ -141,7 +141,7 @@ button:active {
 
 input {
   display: block;
-  margin: 2px -2px 2px 7px;
+  margin: 0 2px;
   width: 100%;
   height: 25px;
   padding: 2px 12px;

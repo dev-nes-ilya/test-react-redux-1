@@ -33,32 +33,39 @@ class App extends Component {
 
     window.onscroll = () => {
       if (autoPlay === "on") {
+        let height = document.getElementsByClassName("directContainer")[0].scrollHeight;
+
+        let offset = window.pageYOffset;
+        let windowClient = document.documentElement.clientHeight;
+        let curCenterY = windowClient / 2 + offset;
+        if (offset < windowClient / 2 - 350) {
+          curCenterY = offset * 2 + 350;
+          console.log('верхняя часть экрана')
+        }
+
+        if (offset >= height - 1.3 * windowClient) {
+          curCenterY = windowClient / 2 + offset + (offset - height + 1.3 * windowClient);
+          console.log('нижняя часть экрана')
+          console.log(windowClient + offset, curCenterY, height)
+        }
+
         let elem = document.getElementsByClassName("videoContent");
+
         for (let i = 0; i < elem.length; i++) {
           let pos = elem[i].getBoundingClientRect();
-          let curCenterY =
-            document.documentElement.clientHeight / 2 + window.pageYOffset; // расстояние от центра экрана до верха страницы
-          let topEl = pos.top + window.pageYOffset; // расстояние от верха страницы до верха элемента
-          let bottomEl = pos.bottom + window.pageYOffset; // расстояние от верха страницы до низа элемента
-          if(pos.bottom < document.documentElement.clientHeight / 2) {
-            elem[i].play()
-          } else {
-            if (curCenterY >= topEl && curCenterY <= bottomEl) {
-            if (elem[i - 1] !== undefined) {
-              elem[i - 1].pause()
-            };
+          let topEl = pos.top + offset; 
+          let bottomEl = pos.bottom + offset; 
+          if (curCenterY >= topEl && curCenterY <= bottomEl) {
             elem[i].play();
           } else {
             elem[i].pause();
           }
-          }
-          
         }
       }
     };
-
     return (
       <div className="Main">
+        <div/>
         <div className="Menu_container">
           <Route component={Menu} />
         </div>
