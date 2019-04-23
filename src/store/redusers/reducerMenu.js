@@ -1,19 +1,20 @@
-import data from "../../data/data.json";
 import {
   SORT_BY,
-  SET_VIEW_CARDS,
-  SET_VIEW_PREVIEW,
   SET_RUS_LANG,
   SET_ENG_LANG,
-  CHANGE_FAVORITE
+  CHANGE_FAVORITE,
+  FILTER_BY_INPUT,
+  SET_DATA_TO_STATE,
+  SET_ORDER
 } from "../actions/actionTypes";
 
 const initialState = {
-  listData: data,
+  listData: {},
   showCards: true,
-  sort: {
-    fieldValue: "id",
-    num: 1
+  dataConverter: {
+    filterWord: "",
+    sortValue: "id",
+    sortOrder: 1
   },
   currentLang: "rus",
   language: {
@@ -31,7 +32,9 @@ const initialState = {
       preview: "Превью",
       interface: "Язык: ",
       sort: "Сортировка: ",
-      view: "Вид: "
+      view: "Вид: ",
+      placeholder:
+        "Для поиска по фамилии, необходимо начинать ввод с символа ' : '"
     },
     eng: {
       language: "English",
@@ -47,28 +50,35 @@ const initialState = {
       preview: "Preview",
       interface: "Language: ",
       sort: "Sort by: ",
-      view: "View: "
+      view: "View: ",
+      placeholder:
+        "To search by last name, you need to start typing with the character ' : "
     }
   }
 };
 
 export default function appReducer(state = initialState, action) {
   switch (action.type) {
+    case SET_DATA_TO_STATE:
+      return {
+        ...state,
+        listData: action.data
+      };
     case SORT_BY:
       return {
         ...state,
-        listData: action.listData,
-        sort: action.sort
+        dataConverter: {
+          ...state.dataConverter,
+          sortValue: action.fieldValue
+        }
       };
-    case SET_VIEW_CARDS:
+    case SET_ORDER:
       return {
         ...state,
-        showCards: true
-      };
-    case SET_VIEW_PREVIEW:
-      return {
-        ...state,
-        showCards: false
+        dataConverter: {
+          ...state.dataConverter,
+          sortOrder: action.num
+        }
       };
     case SET_ENG_LANG:
       return {
@@ -83,9 +93,21 @@ export default function appReducer(state = initialState, action) {
     case CHANGE_FAVORITE:
       return {
         ...state,
-        listData: action.newListData
+        listData: {
+          ...state.listData,
+          [action.id]: {...state.listData[action.id], favourite: !state.listData[action.id].favourite}
+        }
       };
-    default:  
+    case FILTER_BY_INPUT:
+      return {
+        ...state, 
+        dataConverter: {
+          ...state.dataConverter,
+          filterWord: action.filterWord
+        }
+      };
+
+    default:
       return state;
   }
 }

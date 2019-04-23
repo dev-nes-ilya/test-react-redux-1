@@ -1,58 +1,76 @@
 import React, { Component } from "react";
 import "./App.css";
 import { connect } from "react-redux";
-import PeopleCards from "./conteiners/peopleCard/peopleCard";
-import PeopleView from "./conteiners/peopleView/peopleView";
+import { Route, withRouter } from "react-router-dom";
+import ConvertedData from "./conteiners/convertedData/convertedData";
 import Menu from "./components/menu/menu";
+import { setDataToState } from "./store/actions/actionsMenu";
+import axios from "axios";
 
 class App extends Component {
-  render() {
+  componentWillMount() {
+    this.props.history.push(
+      "?auto=on&preview=table&filterWord=&sortValue=id&sortOrder=1",
+      null
+    );
+  }
 
-    const isCards = this.props.showCards;
-    let cls = "";
-    let peoples;
-    if (isCards) {
-      cls = "App";
-      peoples = this.props.listData.map((item, index) => {
-        return (
-          <PeopleCards
-            key={index}
-            idCard={index}
-            name={item.name}
-            age={item.age}
-            phone={item.phone}
-            favourite={item.favourite}
-            image={item.image}
-            obj={item}
-          />
-        );
-      });
-    } else {
-      cls = "App_flex";
-      peoples = this.props.listData.map((item, index) => {
-        return (
-          <PeopleView
-            key={index}
-            idCard={index}
-            name={item.name}
-            age={item.age}
-            phone={item.phone}
-            favourite={item.favourite}
-            image={item.image}
-            phrase={item.phrase}
-            video={item.video}
-            obj={item}
-          />
-        );
-      });
+  async componentDidMount() {
+    try {
+      const response = await axios.get("../../../data/data.json");
+      const mainData = response.data.reduce((acc, item) => {
+        return { ...acc, [item.id]: item };
+      }, {});
+      this.props.setData(mainData);
+    } catch (e) {
+      console.log(e);
     }
+  }
 
+  render() {
+    let params = new URLSearchParams(window.location.search);
+    let autoPlay = params.get("auto");
+
+    window.onscroll = () => {
+      if (autoPlay === "on") {
+        let height = document.getElementsByClassName("directContainer")[0].scrollHeight;
+
+        let offset = window.pageYOffset;
+        let windowClient = document.documentElement.clientHeight;
+        let curCenterY = windowClient / 2 + offset;
+        if (offset < windowClient / 2 - 350) {
+          curCenterY = offset * 2 + 350;
+          console.log('верхняя часть экрана')
+        }
+
+        if (offset >= height - 1.3 * windowClient) {
+          curCenterY = windowClient / 2 + offset + (offset - height + 1.3 * windowClient);
+          console.log('нижняя часть экрана')
+          console.log(windowClient + offset, curCenterY, height)
+        }
+
+        let elem = document.getElementsByClassName("videoContent");
+
+        for (let i = 0; i < elem.length; i++) {
+          let pos = elem[i].getBoundingClientRect();
+          let topEl = pos.top + offset; 
+          let bottomEl = pos.bottom + offset; 
+          if (curCenterY >= topEl && curCenterY <= bottomEl) {
+            elem[i].play();
+          } else {
+            elem[i].pause();
+          }
+        }
+      }
+    };
     return (
       <div className="Main">
+        <div/>
         <div className="Menu_container">
-          <Menu />
+          <Route component={Menu} />
         </div>
-        <div className={cls}>{peoples}</div>
+        <div className="container" />
+        <Route component={ConvertedData} />
       </div>
     );
   }
@@ -60,10 +78,23 @@ class App extends Component {
 function mapStateToProps(state) {
   return {
     listData: state.app.listData,
+    filterWord: state.app.dataConverter.filterWord,
+    sortValue: state.app.dataConverter.sortValue,
+    sortOrder: state.app.dataConverter.sortOrder,
     showCards: state.app.showCards,
-    sort: state.app.sort,
     preview: state.app.preview
   };
 }
 
-export default connect(mapStateToProps)(App);
+function mapDispatchTiProps(dispatch) {
+  return {
+    setData: data => dispatch(setDataToState(data))
+  };
+}
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchTiProps
+  )(App)
+);
