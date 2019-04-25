@@ -10,7 +10,7 @@ import axios from "axios";
 class App extends Component {
   componentWillMount() {
     this.props.history.push(
-      "?auto=on&preview=table&filterWord=&sortValue=id&sortOrder=1",
+      "?auto=on&preview=cards&filterWord=&sortValue=id&sortOrder=1",
       null
     );
   }
@@ -40,13 +40,10 @@ class App extends Component {
         let curCenterY = windowClient / 2 + offset;
         if (offset < windowClient / 2 - 350) {
           curCenterY = offset * 2 + 350;
-          console.log('верхняя часть экрана')
         }
 
         if (offset >= height - 1.3 * windowClient) {
           curCenterY = windowClient / 2 + offset + (offset - height + 1.3 * windowClient);
-          console.log('нижняя часть экрана')
-          console.log(windowClient + offset, curCenterY, height)
         }
 
         let elem = document.getElementsByClassName("videoContent");
