@@ -16,8 +16,6 @@ const peopleView = props => {
   let sortValue = params.get("sortValue");
   let sortOrder = params.get("sortOrder");
 
-
-
   let ageLabel = props.language[props.currentLang].age.label;
   if (props.age > 4 && props.age <= 20) {
     ageLabel = ageLabel[2];
@@ -65,7 +63,18 @@ const peopleView = props => {
   };
 
   return (
-    <div className="Main_block">
+    <div
+      style={{
+        opacity: "0",
+        animationName: "cards",
+        animationDuration: "0.3s",
+        animationDelay: `${props.index * 0.15}s`,
+        animationTimingFunction: "easi-in-out",
+        Zindex: `${1000 / props.index}`,
+        animationFillMode: "forwards"
+      }}
+      className="Main_block"
+    >
       <div className="PeopleView">
         <div className="First_block">
           <img className="Avatar" src={srcimg} alt={props.image} />

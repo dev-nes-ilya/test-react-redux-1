@@ -80,6 +80,7 @@ class ConvertedData extends Component {
   }
 
   render() {
+
     let params = new URLSearchParams(window.location.search);
 
     let preview = params.get("preview");
@@ -104,6 +105,7 @@ class ConvertedData extends Component {
           phone={item.phone}
           favourite={item.favourite}
           image={item.image}
+          index={index}
         />
       );
     });
@@ -125,6 +127,7 @@ class ConvertedData extends Component {
           image={item.image}
           phrase={item.phrase}
           video={item.video}
+          index={index}
         />
       );
     });
