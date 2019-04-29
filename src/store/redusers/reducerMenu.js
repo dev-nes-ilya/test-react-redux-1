@@ -5,11 +5,13 @@ import {
   CHANGE_FAVORITE,
   FILTER_BY_INPUT,
   SET_DATA_TO_STATE,
-  SET_ORDER
+  SET_ORDER,
+  CHANGE_LOADING
 } from "../actions/actionTypes";
 
 const initialState = {
   listData: {},
+  loading: true,
   showCards: true,
   dataConverter: {
     filterWord: "",
@@ -106,7 +108,11 @@ export default function appReducer(state = initialState, action) {
           filterWord: action.filterWord
         }
       };
-
+      case CHANGE_LOADING:
+      return {
+        ...state, 
+        loading: false
+      };
     default:
       return state;
   }

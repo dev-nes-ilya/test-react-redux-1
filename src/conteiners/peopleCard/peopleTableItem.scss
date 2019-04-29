@@ -10,16 +10,15 @@
   justify-content: space-between;
   border-radius: 3px;
   background: #fbfbfb;
+  transition: 0.35s ease-in-out;
 }
 
 @keyframes table {
-    0%   {bottom: -300px; opacity: 0; transform: scale(0.5)}
+    0%   {bottom: 0px; opacity: 0; transform: scale(0.1)}
     100% {bottom: 0px; opacity: 1; transform: scale(1)}
   }
 
-.PeopleCards:hover {
-  background: #cee7ff; /* Old browsers */
-}
+
 
 .PeopleCards li {
   list-style: none;

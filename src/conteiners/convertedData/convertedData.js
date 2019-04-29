@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import PeopleCard from "../peopleCard/peopleCard";
+import PeopleTableItem from "../peopleCard/peopleTableItem";
 import PeopleView from "../peopleView/peopleView";
+import Loading from "../../components/loader/loader"
 import { withRouter } from "react-router-dom";
+import './convertedData.scss'
 
 class ConvertedData extends Component {
   dataConverter(data, filterWord, sortValue, order) {
@@ -76,8 +78,12 @@ class ConvertedData extends Component {
     let currentFilterSorted = currentFilter.sort((a, b) =>
       a[sortValue] > b[sortValue] ? order : -order
     );
+
+
+
     return currentFilterSorted;
   }
+  
 
   render() {
 
@@ -97,7 +103,7 @@ class ConvertedData extends Component {
       sortOrder
     ).map((item, index) => {
       return (
-        <PeopleCard
+        <PeopleTableItem
           key={index}
           idCard={item.id}
           name={item.name}
@@ -133,27 +139,22 @@ class ConvertedData extends Component {
     });
     return (
       <div className='directContainer'>
-        <div style={{
-            position: "fixed",
-            background: "rgb(224, 224, 224)",
-            height: "100%",
-            width: "100%",
-            zIndex: '-1'
-          }}></div>
-        <div
-          style={{
-            top: "65px",
-            display: "flex",
-            alignContent: "flex-start",
-            flexWrap: "wrap",
-            maxWidth: "784px",
-            margin: "auto",
-            background: "rgb(224, 224, 224)"
-          }}
-        >
-          {preview === "table" ? table : cards}
-        </div>
+      <div className='innerContainer'></div>
+      <div
+        style={{
+          top: "65px",
+          display: "flex",
+          alignContent: "flex-start",
+          flexWrap: "wrap",
+          maxWidth: "784px",
+          margin: "auto",
+        }}
+      >
+      {this.props.loading ? <Loading /> : null}
+      {preview === "table" ? table : cards}
       </div>
+    </div>
+
     );
   }
 }
@@ -161,6 +162,7 @@ class ConvertedData extends Component {
 function mapStateToProps(state) {
   return {
     listData: state.app.listData,
+    loading: state.app.loading,
     filterWord: state.app.dataConverter.filterWord,
     sortValue: state.app.dataConverter.sortValue,
     sortOrder: state.app.dataConverter.sortOrder,

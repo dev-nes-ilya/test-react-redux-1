@@ -1,27 +1,28 @@
 import React, { Component } from "react";
-import "./App.css";
+import "./App.scss";
 import { connect } from "react-redux";
 import { Route, withRouter } from "react-router-dom";
 import ConvertedData from "./conteiners/convertedData/convertedData";
 import Menu from "./components/menu/menu";
-import { setDataToState } from "./store/actions/actionsMenu";
+import { setDataToState, changeLoading } from "./store/actions/actionsMenu";
 import axios from "axios";
 
 class App extends Component {
   componentWillMount() {
     this.props.history.push(
-      "?auto=on&preview=cards&filterWord=&sortValue=id&sortOrder=1",
+      "?auto=on&preview=table&filterWord=&sortValue=id&sortOrder=1",
       null
     );
   }
 
   async componentDidMount() {
     try {
-      const response = await axios.get("../../../data/data.json");
+      const response = await axios.get("https://test-react-redux-4942f.firebaseio.com/data.json");
       const mainData = response.data.reduce((acc, item) => {
         return { ...acc, [item.id]: item };
       }, {});
       this.props.setData(mainData);
+      this.props.changeLoading()
     } catch (e) {
       console.log(e);
     }
@@ -30,10 +31,10 @@ class App extends Component {
   render() {
     let params = new URLSearchParams(window.location.search);
     let autoPlay = params.get("auto");
-
     window.onscroll = () => {
       if (autoPlay === "on") {
-        let height = document.getElementsByClassName("directContainer")[0].scrollHeight;
+        let height = document.getElementsByClassName("directContainer")[0]
+          .scrollHeight;
 
         let offset = window.pageYOffset;
         let windowClient = document.documentElement.clientHeight;
@@ -43,15 +44,17 @@ class App extends Component {
         }
 
         if (offset >= height - 1.3 * windowClient) {
-          curCenterY = windowClient / 2 + offset + (offset - height + 1.3 * windowClient);
+          curCenterY =
+            windowClient / 2 + offset + (offset - height + 1.3 * windowClient);
         }
 
         let elem = document.getElementsByClassName("videoContent");
 
         for (let i = 0; i < elem.length; i++) {
           let pos = elem[i].getBoundingClientRect();
-          let topEl = pos.top + offset; 
-          let bottomEl = pos.bottom + offset; 
+          let topEl = pos.top + offset;
+          let bottomEl = pos.bottom + offset;
+
           if (curCenterY >= topEl && curCenterY <= bottomEl) {
             elem[i].play();
           } else {
@@ -60,9 +63,10 @@ class App extends Component {
         }
       }
     };
+
     return (
       <div className="Main">
-        <div/>
+        <div />
         <div className="Menu_container">
           <Route component={Menu} />
         </div>
@@ -85,7 +89,8 @@ function mapStateToProps(state) {
 
 function mapDispatchTiProps(dispatch) {
   return {
-    setData: data => dispatch(setDataToState(data))
+    setData: data => dispatch(setDataToState(data)),
+    changeLoading: () => dispatch(changeLoading())
   };
 }
 

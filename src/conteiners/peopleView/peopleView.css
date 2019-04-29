@@ -7,10 +7,11 @@
   margin: 5px;
   background: #fbfbfb;
   max-width: 773px;
+  transition: 0.3s ease-in-out;
 }
 
 @keyframes cards {
-    0%   {bottom: -500px; opacity: 0; transform: scale(0.5)}
+    0%   {bottom: 0; opacity: 0; transform: scale(0.1)}
     100% {bottom: 0px; opacity: 1; transform: scale(1)}
   }
 
@@ -32,9 +33,7 @@ a {
   padding: 5px;
 }
 
-.PeopleView:hover {
-  background: #cee7ff; /* Old browsers */
-}
+
 
 .PeopleView > div {
   display: flex;

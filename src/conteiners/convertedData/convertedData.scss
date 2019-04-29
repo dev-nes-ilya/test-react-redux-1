@@ -1,0 +1,157 @@
+$BrandColor: #4b6f85;
+$dependentColor1: adjust-hue(desaturate(lighten($BrandColor, 46%), 2%), -14);
+$dependentColor2: adjust-hue(saturate(lighten($BrandColor, 13%), 34%), -112);
+$dependentColor3: adjust-hue(saturate(darken($BrandColor, 2%), 34%), -111);
+$dependentColor4: adjust-hue(saturate(darken($BrandColor, 12%), 35%), -112);
+$dependentColor5: adjust-hue(saturate(lighten($BrandColor, 58%), 35%), -111);
+$dependentColor6: adjust-hue(saturate(darken($BrandColor, 27%), 2%), -5);
+$dependentColor7: adjust-hue(desaturate(lighten($BrandColor, 53%), 2%), -12);
+$dependentColor8: adjust-hue(desaturate(lighten($BrandColor, 12%), 5%), 3);
+
+.innerContainer {
+  background-image: radial-gradient(
+    ellipse farthest-corner at right center,
+    $dependentColor8 22.8%,
+    $BrandColor 93.5%
+  );
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+
+.Menu {
+  display: flex;
+  top: 0;
+  margin: auto;
+  padding: 0;
+  width: 100%;
+  min-width: 550px;
+  min-height: 130px;
+  height: 130px;
+  flex-direction: row;
+  justify-content: center;
+  align-content: stretch;
+  background: $dependentColor1;
+  z-index: 1;
+  box-shadow: 0px 8px 20px 0px rgba(50, 50, 50, 0.65);
+}
+
+.Menu > div:first-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 550px;
+  width: 774px;
+  color: $dependentColor6;
+}
+
+.Left_side {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+  width: 73%;
+  min-width: 300px;
+  padding: 0 5px 0 0;
+}
+
+.Right_side {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  width: 27%;
+  padding: 0 0 10px 0px;
+  flex-grow: 2;
+  min-width: 130px;
+}
+
+p {
+  padding: 0;
+  margin: 2px 5px;
+}
+.Buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+.Buttons > div {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+.Buttons > a {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  text-decoration: none;
+}
+a {
+  width: 100%;
+  margin: 0 2px;
+}
+
+button {
+  margin: 0;
+  padding: 6px 6px;
+  width: 100%;
+  background: $dependentColor2;
+  border-radius: 4px;
+  border: 1px solid $dependentColor1;
+  box-shadow: inset 0px 1px 5px $dependentColor3;
+  color: $dependentColor5;
+  outline: none;
+  transition: 0.35s ease-in-out;
+}
+
+button:hover {
+  background: $dependentColor3;
+}
+
+button:active {
+  box-shadow: inset 0px 3px 5px $dependentColor3;
+}
+
+.selected {
+  background: $dependentColor3;
+  box-shadow: inset 0px 3px 5px $dependentColor4;
+  transition: 0.35s ease-in-out;
+}
+
+input {
+  display: block;
+  margin: 0 2px;
+  width: 100%;
+  height: 25px;
+  padding: 2px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: rgb(136, 136, 136);
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  outline: none;
+}
+input:focus {
+  border: 1px solid rgb(255, 182, 169);
+  box-shadow: 0px 0px 3px rgb(255, 176, 152);
+}
+
+input::-webkit-input-placeholder {
+  color: rgb(158, 158, 158);
+}
+
+.PeopleCards:hover {
+  background: $dependentColor7;
+}
+
+.Main_block:hover {
+  background: $dependentColor7;
+}
