@@ -61,6 +61,8 @@ const peopleView = props => {
       backgroundSize: "65%"
     }
   };
+  document.body.scrollTop = document.documentElement.scrollTop = 0
+
 
   return (
     <div
@@ -68,7 +70,7 @@ const peopleView = props => {
         opacity: "0",
         animationName: "cards",
         animationDuration: "0.3s",
-        animationDelay: `${props.index * 0.15}s`,
+        animationDelay: `${props.index < 10 ? props.index * 0.5: props.index * 0.01}s`,
         animationTimingFunction: "easi-in-out",
         Zindex: `${1000 / props.index}`,
         animationFillMode: "forwards"
@@ -99,8 +101,9 @@ const peopleView = props => {
           >
             <video
               className={"videoContent"}
+              muted
               controls
-              preload="none"
+              preload='metadata'
               width="100%"
               height="100%"
               src={srcvid}

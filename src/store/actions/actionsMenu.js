@@ -5,7 +5,8 @@ import {
   CHANGE_FAVORITE,
   FILTER_BY_INPUT,
   SET_DATA_TO_STATE,
-  SET_ORDER
+  SET_ORDER,
+  CHANGE_LOADING
 } from "./actionTypes";
 
 
@@ -54,4 +55,10 @@ export function filterByInput(filterWord) {
     type: FILTER_BY_INPUT,
     filterWord
   };
+}
+
+export function changeLoading() {
+  return {
+    type: CHANGE_LOADING
+  }
 }

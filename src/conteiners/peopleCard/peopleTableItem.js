@@ -1,10 +1,11 @@
 import React from "react";
 import Radium from "radium";
-import "./peopleCard.css";
+import "./peopleTableItem.scss";
 import { connect } from "react-redux";
 import { handlerchangeFavorite } from "../../store/actions/actionsMenu";
 
-const PeopleCard = props => {
+const PeopleTableItem = props => {
+
   function handlerchangeFavorite() {
     props.changeFavorite(props.idCard);
   }
@@ -50,13 +51,14 @@ const PeopleCard = props => {
       backgroundSize: "90%"
     }
   };
- 
+  document.body.scrollTop = document.documentElement.scrollTop = 0
+
   return (
     <ul style={{
       opacity: '0',
       animationName: 'table',
       animationDuration: '0.3s',
-      animationDelay: `${props.index * 0.09}s`,
+      animationDelay: `${props.index < 30 ? props.index * 0.07 : props.index * 0.01}s`,
       animationTimingFunction: 'easi-in-out',
       Zindex: `${1000 / props.index}`,
       animationFillMode: 'forwards'
@@ -92,4 +94,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Radium(PeopleCard));
+)(Radium(PeopleTableItem));
